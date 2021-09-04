@@ -1,5 +1,6 @@
 module gitlab.cloud.spuda.net/flowkeeper/flowagent/v2
 
+// +heroku goVersion go1.17
 go 1.17
 
 require (
