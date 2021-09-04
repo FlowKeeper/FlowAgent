@@ -34,6 +34,7 @@ func Init() {
 		CapturedAt TEXT NOT NULL,
 		ValueString TEXT,
 		ValueInt TEXT,
+		Type INTEGER NOT NULL,
 		Error TEXT
 	);`
 

@@ -40,6 +40,7 @@ func StartScheduler(ID primitive.ObjectID) {
 		rawOut, err := cmd.CombinedOutput()
 		result.CapturedAt = time.Now()
 		result.ItemID = ID
+		result.Type = item.Returns
 
 		if err != nil {
 			//Couldn't execute

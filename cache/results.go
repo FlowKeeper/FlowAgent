@@ -19,7 +19,7 @@ func AddResult(Result models.Result) error {
 		return err
 	}
 
-	_, err = tx.Exec(`INSERT INTO results (ItemID, CapturedAt, ValueString, ValueInt, Error) VALUES (?,?,?,?,?)`, Result.ItemID.Hex(), Result.CapturedAt, Result.ValueString, Result.ValueNumeric, Result.Error)
+	_, err = tx.Exec(`INSERT INTO results (ItemID, CapturedAt, ValueString, ValueInt, Type, Error) VALUES (?,?,?,?,?,?)`, Result.ItemID.Hex(), Result.CapturedAt, Result.ValueString, Result.ValueNumeric, Result.Type, Result.Error)
 	if err != nil {
 		logger.Error(loggingArea, "Couldn't exec query for result:", err)
 		tx.Rollback()
@@ -47,7 +47,7 @@ func RetrieveCache() ([]models.Result, error) {
 		return results, err
 	}
 
-	rows, err := tx.Query(`SELECT ItemID,CapturedAt,ValueString,ValueInt,Error FROM results`)
+	rows, err := tx.Query(`SELECT ItemID,CapturedAt,ValueString,ValueInt,Type,Error FROM results`)
 	if err != nil {
 		logger.Error(loggingArea, "Couldn't retrieve cached results:", err)
 		return results, err
@@ -59,7 +59,7 @@ func RetrieveCache() ([]models.Result, error) {
 		var itemIDString string
 		var valueNumericString string
 
-		err := rows.Scan(&itemIDString, &capturedAtString, &cachedResult.ValueString, &valueNumericString, &cachedResult.Error)
+		err := rows.Scan(&itemIDString, &capturedAtString, &cachedResult.ValueString, &valueNumericString, &cachedResult.Type, &cachedResult.Error)
 		if err != nil {
 			//Dont abort here so the corrupted result doesnt block the result flow
 			logger.Error(loggingArea, "Couldn't decode cached results:", err)
