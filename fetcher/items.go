@@ -19,9 +19,11 @@ const loggingArea = "Fetcher"
 //Registered is set to true after register() is run once, so we dont run it multiple times (would be pointless)
 var registered = false
 
-func fetch() {
+func fetch() error {
 	//Ensure that we are registered
-	register()
+	if err := register(); err != nil {
+		return err
+	}
 
 	logger.Info(loggingArea, "Fetching current config from server")
 	req, err := http.NewRequest("GET", fmt.Sprintf("%s://%s/api/v1/config", config.Config.ServerAdressParsed.Scheme, config.Config.ServerAdressParsed.Host), nil)
@@ -34,7 +36,8 @@ func fetch() {
 	client := &http.Client{}
 	resp, err := client.Do(req)
 	if err != nil {
-		logger.Fatal(loggingArea, "Couldn't send server request:", err)
+		logger.Error(loggingArea, "Couldn't send server request:", err)
+		return err
 	}
 
 	var parsedResponse struct {
@@ -42,17 +45,21 @@ func fetch() {
 		Payload models.Agent
 	}
 	bodyBytes, _ := ioutil.ReadAll(resp.Body)
-	json.Unmarshal(bodyBytes, &parsedResponse)
+	if err := json.Unmarshal(bodyBytes, &parsedResponse); err != nil {
+		logger.Error(loggingArea, "Couldn't deode response from server:", err)
+		return err
+	}
 
 	agent := parsedResponse.Payload
 
 	logger.Info(loggingArea, fmt.Sprintf("Recieved %d items from server", len(agent.ItemsResolved)))
 	cache.RemoteAgent = agent
+	return nil
 }
-func register() {
+func register() error {
 	//If we already ran this function once
 	if registered {
-		return
+		return nil
 	}
 
 	logger.Info(loggingArea, "Trying to contact server for potential register")
@@ -71,13 +78,16 @@ func register() {
 
 	resp, err := http.Post(fmt.Sprintf("%s://%s/api/v1/register", config.Config.ServerAdressParsed.Scheme, config.Config.ServerAdressParsed.Host), "application/json", bytes.NewBuffer(data))
 	if err != nil {
-		logger.Fatal(loggingArea, "Couldn't register at server:", err)
+		logger.Error(loggingArea, "Couldn't register at server:", err)
+		return err
 	}
 
 	if resp.StatusCode != http.StatusOK {
 		respBytes, _ := ioutil.ReadAll(resp.Body)
-		logger.Fatal(loggingArea, "Couldn't register at server:", string(respBytes))
+		logger.Error(loggingArea, "Couldn't register at server:", string(respBytes))
+		return err
 	}
 
 	registered = true
+	return nil
 }

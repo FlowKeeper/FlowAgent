@@ -15,8 +15,9 @@ import (
 func Init() {
 	cache.CurrentItems = make(map[primitive.ObjectID]models.Item)
 	for {
-		fetch()
-		syncConfig()
+		if err := fetch(); err == nil {
+			syncConfig()
+		}
 
 		time.Sleep(60 * time.Second)
 	}
