@@ -64,6 +64,7 @@ func versionCheck() {
 		logger.Fatal(loggingArea, err)
 	}
 
+	res.Close()
 	if version == currentSQLVersion {
 		logger.Info(loggingArea, "Local Agent Configuration is right verison. No need to upgrade.")
 		return

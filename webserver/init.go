@@ -8,6 +8,7 @@ import (
 	"github.com/gorilla/mux"
 	"gitlab.cloud.spuda.net/Wieneo/golangutils/v2/logger"
 	"gitlab.cloud.spuda.net/flowkeeper/flowagent/v2/config"
+	"gitlab.cloud.spuda.net/flowkeeper/flowagent/v2/webserver/endpoints"
 )
 
 const loggingArea = "WEB"
@@ -18,6 +19,8 @@ func Init() {
 	logger.Info(loggingArea, "Listening on", listenString)
 	router := mux.NewRouter()
 	router.Use(loggingMiddleware)
+
+	router.HandleFunc("/api/v1/retrieve", endpoints.Retrieve).Methods("GET")
 
 	srv := &http.Server{
 		Handler:      router,
