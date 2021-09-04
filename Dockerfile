@@ -1,11 +1,12 @@
-FROM alpine:3.13
+FROM golang:1.17-alpine
 
-RUN mkdir /app
-RUN apk add --no-cache git make musl-dev go=1.16.7-r0
 COPY . /src
-RUN cd /src && go build -o /app/agent .
-RUN apk del git make musl-dev go
-RUN rm -rf /src
+RUN apk add gcc musl-dev
+RUN cd /src && go build -o /src/agent .
+
+FROM alpine:latest
+RUN mkdir /app
+COPY --from=0 /src/agent /app/agent
 
 CMD ["/app/agent"]
 
