@@ -13,6 +13,7 @@ import (
 )
 
 type SampleConfig struct {
+	Debug              bool
 	ListenAddress      string
 	ListenPort         int
 	CachePath          string
@@ -97,7 +98,7 @@ func Init() {
 		if !useENV {
 			logger.Fatal(loggingArea, "ServerAdress is malformed. Example: http://my-server.domain.tld:5000")
 		} else {
-			logger.Fatal(loggingArea, "ServerAddress is malformed / not set. Please set the ENV Variable: Flow_ServerAddress")
+			logger.Fatal(loggingArea, "ServerAddress is malformed / not set. Please set the ENV Variable: FLOW_SERVER_ADDRESS")
 		}
 	}
 
@@ -109,17 +110,26 @@ func Init() {
 
 	Config.ServerAdressParsed = *url
 
+	if Config.Debug {
+		logger.EnableDebugLog()
+		logger.Debug(loggingArea, "Enabled debug logging")
+	}
+
 	logger.Info(loggingArea, "Config is operational")
 }
 
 func readEnv() {
 	logger.Info(loggingArea, "Using ENV Variables as config")
 
-	Config.ListenAddress = os.Getenv("Flow_ListenAddress")
-	Config.CachePath = os.Getenv("Flow_CachePath")
-	Config.ServerAddress = os.Getenv("Flow_ServerAddress")
+	Config.ListenAddress = os.Getenv("FLOW_LISTEN_ADDRESS")
+	Config.CachePath = os.Getenv("FLOW_CACHE_PATH")
+	Config.ServerAddress = os.Getenv("FLOW_SERVER_ADDRESS")
 
-	if port, err := strconv.Atoi(os.Getenv("Flow_ListenPort")); err == nil {
+	if port, err := strconv.Atoi(os.Getenv("FLOW_LISTEN_PORT")); err == nil {
 		Config.ListenPort = port
+	}
+
+	if debugBoolean, err := strconv.ParseBool(os.Getenv("FLOW_DEBUG")); err == nil {
+		Config.Debug = debugBoolean
 	}
 }
