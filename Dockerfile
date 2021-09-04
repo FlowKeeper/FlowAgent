@@ -1,7 +1,7 @@
 FROM golang:1.17-bullseye
 
 COPY . /src
-RUN cd /src && go build -o /src/agent .
+RUN cd /src && CGO_ENABLED=0 go build -o /src/agent .
 
 FROM alpine:latest
 RUN mkdir /app
