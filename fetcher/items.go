@@ -3,6 +3,7 @@ package fetcher
 import (
 	"bytes"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io/ioutil"
 	"net/http"
@@ -41,13 +42,20 @@ func fetch() error {
 		return err
 	}
 
+	bodyBytes, _ := ioutil.ReadAll(resp.Body)
+
+	if resp.StatusCode != http.StatusOK {
+		logger.Error(loggingArea, "Couldn't retrieve items from server. Got:", string(bodyBytes))
+		return errors.New("recieved invalid status code")
+	}
+
 	var parsedResponse struct {
 		Status  string
 		Payload models.Agent
 	}
-	bodyBytes, _ := ioutil.ReadAll(resp.Body)
+
 	if err := json.Unmarshal(bodyBytes, &parsedResponse); err != nil {
-		logger.Error(loggingArea, "Couldn't deode response from server:", err)
+		logger.Error(loggingArea, "Couldn't deode response from server:", err, "Got:", string(bodyBytes))
 		return err
 	}
 
@@ -87,7 +95,7 @@ func register() error {
 	if resp.StatusCode != http.StatusOK {
 		respBytes, _ := ioutil.ReadAll(resp.Body)
 		logger.Error(loggingArea, "Couldn't register at server:", string(respBytes))
-		return err
+		return errors.New("recieved invalid status code")
 	}
 
 	registered = true
