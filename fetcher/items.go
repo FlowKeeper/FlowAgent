@@ -11,6 +11,7 @@ import (
 	"gitlab.cloud.spuda.net/Wieneo/golangutils/v2/logger"
 	"gitlab.cloud.spuda.net/flowkeeper/flowagent/v2/cache"
 	"gitlab.cloud.spuda.net/flowkeeper/flowagent/v2/config"
+	"gitlab.cloud.spuda.net/flowkeeper/flowagent/v2/webserver"
 	"gitlab.cloud.spuda.net/flowkeeper/flowutils/v2/models"
 )
 
@@ -27,7 +28,7 @@ func fetch() error {
 
 	logger.Info(loggingArea, "Fetching current config from server")
 	req, err := http.NewRequest("GET", fmt.Sprintf("%s://%s/api/v1/config", config.Config.ServerAdressParsed.Scheme, config.Config.ServerAdressParsed.Host), nil)
-	req.Header.Add("AgentID", cache.Config.AgentID.String())
+	req.Header.Add("AgentUUID", cache.Config.AgentUUID.String())
 
 	if err != nil {
 		logger.Fatal(loggingArea, "Couldn't construct server request:", err)
@@ -54,6 +55,7 @@ func fetch() error {
 
 	logger.Info(loggingArea, fmt.Sprintf("Recieved %d items from server", len(agent.ItemsResolved)))
 	cache.RemoteAgent = agent
+	webserver.ReadyToServer = true
 	return nil
 }
 func register() error {
@@ -69,7 +71,7 @@ func register() error {
 		AgentOS   string
 		AgentPort string
 	}{
-		AgentUUID: cache.Config.AgentID.String(),
+		AgentUUID: cache.Config.AgentUUID.String(),
 		AgentOS:   runtime.GOOS,
 		AgentPort: fmt.Sprint(config.Config.ListenPort),
 	}
@@ -89,5 +91,6 @@ func register() error {
 	}
 
 	registered = true
+	logger.Info(loggingArea, "My UUID is", cache.Config.AgentUUID)
 	return nil
 }

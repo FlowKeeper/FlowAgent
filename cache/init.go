@@ -61,7 +61,7 @@ func versionCheck() {
 	}
 
 	var version int
-	if err := res.Scan(&Config.ScraperID, &Config.AgentID, &version); err != nil {
+	if err := res.Scan(&Config.ScraperUUID, &Config.AgentUUID, &version); err != nil {
 		logger.Fatal(loggingArea, err)
 	}
 
