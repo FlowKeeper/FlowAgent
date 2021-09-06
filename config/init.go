@@ -37,8 +37,8 @@ const loggingArea = "CONFIG"
 func Init() {
 	var useENV bool
 	var err error
-	if !stringHelper.IsEmpty(os.Getenv("Flow_ENV")) {
-		useENV, err = strconv.ParseBool(os.Getenv("Flow_ENV"))
+	if !stringHelper.IsEmpty(os.Getenv("FLOW_ENV")) {
+		useENV, err = strconv.ParseBool(os.Getenv("FLOW_ENV"))
 	}
 
 	//Determine OS and use specific paths for config and cache
