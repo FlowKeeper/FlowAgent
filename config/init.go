@@ -13,6 +13,7 @@ import (
 )
 
 type SampleConfig struct {
+	Name               string
 	Debug              bool
 	ListenAddress      string
 	ListenPort         int
@@ -102,6 +103,16 @@ func Init() {
 		}
 	}
 
+	if stringHelper.IsEmpty(Config.Name) {
+		if !useENV {
+			logger.Fatal(loggingArea, "Name is malformed. Example: MyAgent")
+		} else {
+			hostname, _ := os.Hostname()
+			logger.Warning(loggingArea, "Using hostname as agent's name:", hostname)
+			Config.Name = hostname
+		}
+	}
+
 	//Parse ServerAddress for easier use later
 	url, err := url.Parse(Config.ServerAddress)
 	if err != nil {
@@ -124,6 +135,7 @@ func readEnv() {
 	Config.ListenAddress = os.Getenv("FLOW_LISTEN_ADDRESS")
 	Config.CachePath = os.Getenv("FLOW_CACHE_PATH")
 	Config.ServerAddress = os.Getenv("FLOW_SERVER_ADDRESS")
+	Config.Name = os.Getenv("FLOW_NAME")
 
 	if port, err := strconv.Atoi(os.Getenv("FLOW_LISTEN_PORT")); err == nil {
 		Config.ListenPort = port
