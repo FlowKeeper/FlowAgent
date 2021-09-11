@@ -27,13 +27,13 @@ jobs:
       run: go test -v ./...
 
     - name: Build
-      run: CGO_ENABLED=0 go build -o /tmp/flowagent .
+      run: CGO_ENABLED=0 go build -o flowagent .
 
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v2.2.4
       with:
         name: binary
-        path: /tmp/flowagent
+        path: flowagent
 
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v1
