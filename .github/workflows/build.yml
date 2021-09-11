@@ -12,29 +12,29 @@ jobs:
       run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
       id: extract_branch
 
-    - name: Set up Go
-      uses: actions/setup-go@v2
-      with:
-        go-version: 1.17
-    
     - name: Check wokeness
       uses: get-woke/woke-action@v0
       with:
         # Cause the check to fail on any broke rules
         fail-on-error: true
-          
+
+    - name: Set up Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: 1.17
+
     - name: Test
       run: go test -v ./...
-      
+
     - name: Build
       run: go build -o flowagent .
-      
+
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v2.2.4
       with:
         name: binary
         path: ./flowagent
-        
+
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v1
     - name: Set up Docker Buildx
@@ -44,12 +44,10 @@ jobs:
       with:
         username: flowkeeper
         password: ${{ secrets.DOCKER_APPLICATION_SECRET }}
-        
+
     - name: Build docker image and push
       id: docker_build
       uses: docker/build-push-action@v2
       with:
         push: true
         tags: flowkeeper/flowagent:${{ steps.extract_branch.outputs.branch }}
-    
-    
