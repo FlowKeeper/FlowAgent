@@ -23,7 +23,7 @@ jobs:
       run: go test -v ./...
       
     - name: Build
-      run: go build -o flowagent -v ./...
+      run: go build -o flowagent .
       
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v2.2.4
