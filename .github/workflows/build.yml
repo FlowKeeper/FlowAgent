@@ -33,7 +33,7 @@ jobs:
       uses: actions/upload-artifact@v2.2.4
       with:
         name: binary
-        path: ./flowagent
+        path: /tmp/flowagent
 
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v1
