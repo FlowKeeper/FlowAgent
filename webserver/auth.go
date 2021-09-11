@@ -10,8 +10,10 @@ import (
 	"gitlab.cloud.spuda.net/Wieneo/golangutils/v2/stringHelper"
 )
 
-const NotAllowed = "You are not allowed to access this agent"
+const notAllowed = "You are not allowed to access this agent"
 
+//ReadyToServe is set to true after the configuration was fetched from the server
+//We shouldn't serve results before setting up the scheduler and the general configuration
 var ReadyToServer = false
 
 //authorizationMiddleware should check the "ScraperUUID" header and determine if the client is allowed to send http requests to this agent
@@ -25,19 +27,19 @@ func authorizationMiddleware(next http.Handler) http.Handler {
 
 		scraperuuidString := r.Header.Get("ScraperUUID")
 		if stringHelper.IsEmpty(scraperuuidString) {
-			httpResponse.UserError(w, 401, NotAllowed)
+			httpResponse.UserError(w, 401, notAllowed)
 			logger.Warning(loggingArea, "Someone tried to access this agent without providing a ScraperUUID")
 			return
 		}
 		scraperUUID, err := uuid.Parse(scraperuuidString)
 		if err != nil {
-			httpResponse.UserError(w, 401, NotAllowed)
+			httpResponse.UserError(w, 401, notAllowed)
 			logger.Warning(loggingArea, "Someone tried to access this agent with an invalid ScraperUUID header")
 			return
 		}
 
 		if cache.RemoteAgent.Scraper.UUID != scraperUUID {
-			httpResponse.UserError(w, 401, NotAllowed)
+			httpResponse.UserError(w, 401, notAllowed)
 			logger.Warning(loggingArea, "Someone tried to access this agent with the wrong ScraperUUID")
 			return
 		}

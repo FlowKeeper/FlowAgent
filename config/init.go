@@ -12,7 +12,8 @@ import (
 	"gitlab.cloud.spuda.net/Wieneo/golangutils/v2/stringHelper"
 )
 
-type SampleConfig struct {
+//Config stores the current configuration of the agent
+var Config struct {
 	Name               string
 	Debug              bool
 	ListenAddress      string
@@ -21,8 +22,6 @@ type SampleConfig struct {
 	ServerAddress      string
 	ServerAdressParsed url.URL
 }
-
-var Config SampleConfig
 
 const linuxConfigPath = "/etc/flowagent/config.json"
 const windowsConfigPath = `C:\flowagent\config.json`

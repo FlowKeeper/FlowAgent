@@ -6,6 +6,8 @@ import (
 
 	"github.com/FlowKeeper/FlowAgent/v2/config"
 	"github.com/google/uuid"
+
+	//Black import because we are using sqlite here to cache item results
 	_ "github.com/mattn/go-sqlite3"
 	"gitlab.cloud.spuda.net/Wieneo/golangutils/v2/logger"
 )
@@ -14,6 +16,7 @@ var db *sql.DB
 
 const loggingArea = "CACHE"
 
+//Init initializes the sqlite database and its client
 func Init() {
 	var err error
 	logger.Info(loggingArea, "Initializing cache")
