@@ -59,7 +59,7 @@ func fetch() error {
 
 	agent := parsedResponse.Payload
 
-	logger.Info(loggingArea, fmt.Sprintf("Recieved %d items from server", len(agent.ItemsResolved)))
+	logger.Info(loggingArea, fmt.Sprintf("Recieved %d items from server", len(agent.GetAllItems())))
 	cache.RemoteAgent = agent
 	webserver.ReadyToServer = true
 	return nil

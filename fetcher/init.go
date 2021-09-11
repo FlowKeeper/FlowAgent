@@ -29,7 +29,7 @@ func syncConfig() {
 	ignoredDueToOS := 0
 	ignoredDueToDisabled := 0
 
-	for _, k := range cache.RemoteAgent.ItemsResolved {
+	for _, k := range cache.RemoteAgent.GetAllItems() {
 		agentos, _ := models.AgentosFromString(runtime.GOOS)
 		if k.CheckOn != agentos {
 			ignoredDueToOS++
