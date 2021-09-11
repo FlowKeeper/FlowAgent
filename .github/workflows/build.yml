@@ -1,0 +1,33 @@
+name: Standart Build
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Set up Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: 1.17
+    
+    - name: Check wokeness
+      uses: get-woke/woke-action@v0
+      with:
+        # Cause the check to fail on any broke rules
+        fail-on-error: true
+          
+    - name: Test
+      run: go test -v ./...
+      
+    - name: Build
+      run: go build -o flowagent -v ./...
+      
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v2.2.4
+      with:
+        name: binary
+        path: ./flowagent
+    
