@@ -1,7 +1,7 @@
 package cache
 
 import (
-	"gitlab.cloud.spuda.net/flowkeeper/flowutils/v2/models"
+	"github.com/FlowKeeper/FlowUtils/v2/models"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 

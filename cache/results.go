@@ -4,9 +4,9 @@ import (
 	"strconv"
 	"time"
 
+	"github.com/FlowKeeper/FlowUtils/v2/models"
 	"gitlab.cloud.spuda.net/Wieneo/golangutils/v2/logger"
 	"gitlab.cloud.spuda.net/Wieneo/golangutils/v2/stringHelper"
-	"gitlab.cloud.spuda.net/flowkeeper/flowutils/v2/models"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
