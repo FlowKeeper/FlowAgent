@@ -67,7 +67,7 @@ func Init() {
 		readEnv()
 	}
 
-	//Sanity check config
+	//Check if all fields are set correctly
 	if stringHelper.IsEmpty(Config.ListenAddress) {
 		if !useENV {
 			logger.Fatal(loggingArea, "ListenAddress is malformed. Example: \"0.0.0.0\"")
