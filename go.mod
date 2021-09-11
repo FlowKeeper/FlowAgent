@@ -11,4 +11,4 @@ require (
 	go.mongodb.org/mongo-driver v1.7.2
 )
 
-require github.com/FlowKeeper/FlowUtils/v2 v2.0.0-20210911131436-92d4bc520c0a // indirect
+require github.com/FlowKeeper/FlowUtils/v2 v2.0.0-20210911185616-289b6e6b3efd // indirect

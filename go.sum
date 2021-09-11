@@ -25,6 +25,8 @@ github.com/FlowKeeper/FlowUtils/v2 v2.0.0-20210911082017-a077151195c2 h1:THtnGKY
 github.com/FlowKeeper/FlowUtils/v2 v2.0.0-20210911082017-a077151195c2/go.mod h1:3NcglY+n1LbSd7ntEO/X9iYm+ZC7Kx+rzm/HSgc56Hk=
 github.com/FlowKeeper/FlowUtils/v2 v2.0.0-20210911131436-92d4bc520c0a h1:q0rOSUxNGupTBef13cg+bAE226JUnvd/4W4n0O7Xz2w=
 github.com/FlowKeeper/FlowUtils/v2 v2.0.0-20210911131436-92d4bc520c0a/go.mod h1:JnqnfIlzQ0P5DEHlNbKoPar58eI5NnifsZEdBpmhB/w=
+github.com/FlowKeeper/FlowUtils/v2 v2.0.0-20210911185616-289b6e6b3efd h1:X9SkSHOSuPFZsf1T30WBG4xjCcwgbrecj4fJ60QutzY=
+github.com/FlowKeeper/FlowUtils/v2 v2.0.0-20210911185616-289b6e6b3efd/go.mod h1:JnqnfIlzQ0P5DEHlNbKoPar58eI5NnifsZEdBpmhB/w=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/go-stack/stack v1.8.0/go.mod h1:v0f6uXyyMGvRgIKkXu+yp6POWl0qKG85gN/melR3HDY=
