@@ -14,12 +14,12 @@ const notAllowed = "You are not allowed to access this agent"
 
 //ReadyToServe is set to true after the configuration was fetched from the server
 //We shouldn't serve results before setting up the scheduler and the general configuration
-var ReadyToServer = false
+var ReadyToServe = false
 
 //authorizationMiddleware should check the "ScraperUUID" header and determine if the client is allowed to send http requests to this agent
 func authorizationMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		if !ReadyToServer {
+		if !ReadyToServe {
 			httpResponse.UserError(w, 406, "Please wait until initialization is completed")
 			logger.Warning(loggingArea, "Someone tried to access this agent pre-initializtaion!")
 			return

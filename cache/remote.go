@@ -6,6 +6,7 @@ import (
 )
 
 //This file is used to cache information we fetched from the remote server
+
 //RemoteAgent stores the struct returned from the server when calling /api/v1/config
 var RemoteAgent models.Agent
 

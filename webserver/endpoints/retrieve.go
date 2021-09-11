@@ -7,6 +7,7 @@ import (
 	"gitlab.cloud.spuda.net/Wieneo/golangutils/v2/httpResponse"
 )
 
+//Retrieve is called by the server to fetch the cached results
 func Retrieve(w http.ResponseWriter, r *http.Request) {
 	results, err := cache.RetrieveCache()
 	if err != nil {

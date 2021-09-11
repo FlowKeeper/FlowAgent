@@ -61,6 +61,6 @@ func fetch() error {
 
 	logger.Info(loggingArea, fmt.Sprintf("Recieved %d items from server", len(agent.GetAllItems())))
 	cache.RemoteAgent = agent
-	webserver.ReadyToServer = true
+	webserver.ReadyToServe = true
 	return nil
 }
