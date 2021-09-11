@@ -46,6 +46,6 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         push: true
-        tags: flowkeeper/flowagent:${{ env.GITHUB_REF }}
+        tags: flowkeeper/flowagent:${{ github.ref }}
     
     
