@@ -3,11 +3,11 @@ package webserver
 import (
 	"net/http"
 
+	"github.com/FlowKeeper/FlowAgent/v2/cache"
 	"github.com/google/uuid"
 	"gitlab.cloud.spuda.net/Wieneo/golangutils/v2/httpResponse"
 	"gitlab.cloud.spuda.net/Wieneo/golangutils/v2/logger"
 	"gitlab.cloud.spuda.net/Wieneo/golangutils/v2/stringHelper"
-	"gitlab.cloud.spuda.net/flowkeeper/flowagent/v2/cache"
 )
 
 const NotAllowed = "You are not allowed to access this agent"

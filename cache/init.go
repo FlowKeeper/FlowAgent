@@ -4,10 +4,10 @@ import (
 	"database/sql"
 	"log"
 
+	"github.com/FlowKeeper/FlowAgent/v2/config"
 	"github.com/google/uuid"
 	_ "github.com/mattn/go-sqlite3"
 	"gitlab.cloud.spuda.net/Wieneo/golangutils/v2/logger"
-	"gitlab.cloud.spuda.net/flowkeeper/flowagent/v2/config"
 )
 
 var db *sql.DB

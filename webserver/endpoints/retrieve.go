@@ -3,8 +3,8 @@ package endpoints
 import (
 	"net/http"
 
+	"github.com/FlowKeeper/FlowAgent/v2/cache"
 	"gitlab.cloud.spuda.net/Wieneo/golangutils/v2/httpResponse"
-	"gitlab.cloud.spuda.net/flowkeeper/flowagent/v2/cache"
 )
 
 func Retrieve(w http.ResponseWriter, r *http.Request) {

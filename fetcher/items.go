@@ -7,11 +7,11 @@ import (
 	"io/ioutil"
 	"net/http"
 
+	"github.com/FlowKeeper/FlowAgent/v2/cache"
+	"github.com/FlowKeeper/FlowAgent/v2/config"
+	"github.com/FlowKeeper/FlowAgent/v2/webserver"
 	"github.com/FlowKeeper/FlowUtils/v2/models"
 	"gitlab.cloud.spuda.net/Wieneo/golangutils/v2/logger"
-	"gitlab.cloud.spuda.net/flowkeeper/flowagent/v2/cache"
-	"gitlab.cloud.spuda.net/flowkeeper/flowagent/v2/config"
-	"gitlab.cloud.spuda.net/flowkeeper/flowagent/v2/webserver"
 )
 
 const loggingArea = "Fetcher"

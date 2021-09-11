@@ -3,12 +3,12 @@ package main
 import (
 	"fmt"
 
+	"github.com/FlowKeeper/FlowAgent/v2/cache"
+	"github.com/FlowKeeper/FlowAgent/v2/config"
+	"github.com/FlowKeeper/FlowAgent/v2/fetcher"
+	"github.com/FlowKeeper/FlowAgent/v2/webserver"
 	"github.com/FlowKeeper/FlowUtils/v2/flowutils"
 	"gitlab.cloud.spuda.net/Wieneo/golangutils/v2/logger"
-	"gitlab.cloud.spuda.net/flowkeeper/flowagent/v2/cache"
-	"gitlab.cloud.spuda.net/flowkeeper/flowagent/v2/config"
-	"gitlab.cloud.spuda.net/flowkeeper/flowagent/v2/fetcher"
-	"gitlab.cloud.spuda.net/flowkeeper/flowagent/v2/webserver"
 )
 
 func main() {
