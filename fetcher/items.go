@@ -6,12 +6,14 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"strings"
 
 	"github.com/FlowKeeper/FlowAgent/v2/cache"
 	"github.com/FlowKeeper/FlowAgent/v2/config"
 	"github.com/FlowKeeper/FlowAgent/v2/webserver"
 	"github.com/FlowKeeper/FlowUtils/v2/models"
 	"gitlab.cloud.spuda.net/Wieneo/golangutils/v2/logger"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 const loggingArea = "Fetcher"
@@ -44,6 +46,15 @@ func fetch() error {
 
 	if resp.StatusCode != http.StatusOK {
 		logger.Error(loggingArea, "Couldn't retrieve items from server. Got:", string(bodyBytes))
+		//Check if we maybe got deleted
+		if strings.Contains(string(bodyBytes), "Agent is marked as deleted") {
+			if len(cache.CurrentItems) > 0 {
+				logger.Warning(loggingArea, "Stopping all threads because we got deleted!")
+				cache.CurrentItems = make(map[primitive.ObjectID]models.Item)
+				return errors.New("agent got deleted")
+			}
+		}
+
 		return errors.New("recieved invalid status code")
 	}
 
